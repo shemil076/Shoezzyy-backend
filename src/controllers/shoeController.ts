@@ -8,8 +8,30 @@ export const getShoes = async (req: Request, res: Response) => {
 };
 
 export const addShoe = async (req: Request, res: Response) => {
-  const { name, brand } = req.body;
-  const newShoe = new Shoe({ name, brand });
-  await newShoe.save();
-  res.status(201).json(newShoe);
+  const { name, brand, price, description, images } = req.body;
+
+  try {
+      const shoe = new Shoe({
+          name,
+          brand,
+          price,
+          description,
+          images
+      });
+
+      await shoe.save();
+      res.status(201).json(shoe);
+  } catch (error) {
+      console.error('Error creating shoe:', error);
+      res.status(400).json({ message: 'Error creating shoe', error });
+  }
+};
+
+export const getBrands = async (req: Request, res: Response) => {
+  try {
+    const brands = await Shoe.distinct('brand');
+    res.json(brands);
+  } catch (error) {
+    res.status(400).json({ message: 'Error creating shoe', error });
+  }
 };

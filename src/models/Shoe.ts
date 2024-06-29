@@ -1,16 +1,29 @@
-import { Schema, model, Document } from 'mongoose';
-import { Brand } from '../types/enum';
+// shoeModel.js
+import mongoose from 'mongoose';
 
-interface IShoe extends Document {
-  name: string;
-  brand: Brand;
-}
-
-const shoeSchema = new Schema<IShoe>({
-  name: { type: String, required: true },
-  brand: { type: String, enum: Object.values(Brand), required: true }
+const shoeSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    brand: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    images: {
+        type: [String],
+        required: true
+    }
 });
 
-const ShoeModel = model<IShoe>('Shoe', shoeSchema);
+const Shoe = mongoose.model('Shoe', shoeSchema);
 
-export default ShoeModel;
+export default Shoe;

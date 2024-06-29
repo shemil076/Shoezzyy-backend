@@ -29,10 +29,10 @@ async function createInitialDocuments() {
     if (!collectionNames.includes('shoes')) {
       await ShoeModel.create({
         brand: Brand.Nike,
-        size: 42,
         color: 'Red',
         price: 100,
-        name: 'Air'
+        name: 'Air',
+        images : [""]
       });
     }
 
@@ -43,3 +43,8 @@ async function createInitialDocuments() {
 }
 
 export default createInitialDocuments;
+// name: string;
+// brand: Brand;
+// price: number;
+// description: string;
+// images: string[]; // Store file paths as strings
