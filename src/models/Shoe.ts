@@ -1,4 +1,5 @@
 // shoeModel.js
+import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
 const shoeSchema = new mongoose.Schema({
