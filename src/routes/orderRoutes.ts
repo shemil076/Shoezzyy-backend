@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { createOrder, getOrderStatus } from '../controllers/orderController';
+import { createOrder, getOrderById, getOrderStatus, getAllOrders, updateOrderStatus } from '../controllers/orderController';
 
 const router = Router();
 
 router.post('/', createOrder);
-router.get('/:jobId', getOrderStatus);
+router.get('/',getAllOrders);
+router.get('/:jobId', getOrderById);
+router.put('/status', updateOrderStatus);
 
 export default router;
