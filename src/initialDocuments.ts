@@ -1,5 +1,5 @@
 import OrderModel from './models/Order';
-import AdminModel from './models/admin';
+import AdminModel from './models/Admin';
 import ShoeModel from './models/Shoe';
 import mongoose from 'mongoose';
 import { Brand } from './types/enum';
@@ -43,8 +43,3 @@ async function createInitialDocuments() {
 }
 
 export default createInitialDocuments;
-// name: string;
-// brand: Brand;
-// price: number;
-// description: string;
-// images: string[]; // Store file paths as strings

@@ -4,7 +4,11 @@ import connectDB from './db';
 import createInitialDocuments from './initialDocuments';
 import orderRoutes from './routes/orderRoutes';
 import shoeRoutes from './routes/shoeRoutes';
+import adminRouters from './routes/adminAuth'
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -20,6 +24,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use('/api/orders', orderRoutes);
 app.use('/api/shoes', upload.array('images'), shoeRoutes); // Apply multer middleware to shoeRoutes
 app.use('/api/shoes', shoeRoutes);
+app.use('/api/admin', adminRouters);
 
 
 // Start server and connect to DB

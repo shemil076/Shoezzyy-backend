@@ -32,7 +32,6 @@ export const getOrderStatus = async (req: Request, res: Response) => {
 
 export const getAllOrders = async (req: Request, res: Response) =>{
   try{
-    console.log("running getAllOrders")
     const order = await Order.find();
     res.json(order);
   }catch (error){

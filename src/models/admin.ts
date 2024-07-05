@@ -1,13 +1,22 @@
-import { Schema, model, Document } from 'mongoose';
+import mongoose, { Schema, model, Document } from 'mongoose';
 
-interface IAdmin extends Document {
-  username: string;
-  password: string;
-}
-
-const adminSchema = new Schema<IAdmin>({
-  username: { type: String, required: true },
-  password: { type: String, required: true }
+const adminSchema = new mongoose.Schema({
+  email:{
+    type: String,
+    required : true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  role:{
+    type: String,
+    required : true,
+    default : 'admin',
+  }
 });
 
-export default model<IAdmin>('Admin', adminSchema);
+const Admin = mongoose.model('Admin', adminSchema);
+
+export default Admin;
