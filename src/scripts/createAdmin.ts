@@ -6,7 +6,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const createAdmin = async () => {
-    console.log("came here");
+    const firstName = "Sam";
+    const lastName = "Smith";
     const email = 'exampleAdmi@mail.com';
     const password = 'exampleAdminPassword';
 
@@ -23,6 +24,8 @@ const createAdmin = async () => {
         const hasedPassword = await bcrypt.hash(password, salt);
 
         const newAdmin = new Admin({
+            firstName,
+            lastName,
             email,
             password: hasedPassword,
             role:'admin'
