@@ -11,9 +11,12 @@ const shoeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    price: {
+    actualPrice: {
         type: Number,
         required: true
+    },
+    offerPrice: {
+        type: Number,
     },
     description: {
         type: String,
@@ -22,6 +25,11 @@ const shoeSchema = new mongoose.Schema({
     images: {
         type: [String],
         required: true
+    },
+    isATopPcik: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 

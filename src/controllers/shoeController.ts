@@ -9,16 +9,20 @@ export const getShoes = async (req: Request, res: Response) => {
 };
 
 export const addShoe = async (req: Request, res: Response) => {
-  const { name, brand, price, description, images } = req.body;
+  const { name, brand, description, images, actualPrice, offerPrice, isATopPcik, type } = req.body;
 
   try {
-      const shoe = new Shoe({
+      // Ensure type is only added if it exists in the request body
+      const shoe = new Shoe ({
           name,
           brand,
-          price,
+          actualPrice,
+          offerPrice,
           description,
-          images
+          images,
+          isATopPcik
       });
+
 
       await shoe.save();
       res.status(201).json(shoe);
@@ -54,5 +58,25 @@ export const deleteShoe = async (req: Request, res: Response) => {
   }catch(error){
     console.log('Error deleting shoe',error);
     res.status(400).json({message: 'Error deteleting shoe', error});
+  }
+};
+
+export const updateIsTopPickByShoeId = async (req :Request, res : Response) =>{
+  const {_id, isATopPcik} = req.body;
+
+  console.log("_id",_id);
+  console.log("isATopPcik",isATopPcik);
+
+  try{
+    const updatedIsTopPickShoe =  await Shoe.findByIdAndUpdate(
+      {_id},
+      {isATopPcik},
+      {new: true}
+    );
+    if(!updatedIsTopPickShoe) return res.status(404).json({message : 'Shoe not found'});
+    res.status(200).json(updatedIsTopPickShoe);
+  }catch(error){
+    console.error('Error occurred while updating shoe', error);
+    res.status(400).json({message: 'Error occurred while updating shoe', error});
   }
 };
