@@ -9,7 +9,7 @@ export const getShoes = async (req: Request, res: Response) => {
 };
 
 export const addShoe = async (req: Request, res: Response) => {
-  const { name, brand, description, images, actualPrice, offerPrice, isATopPcik, type } = req.body;
+  const { name, brand, description, images, actualPrice, offerPrice, isATopPick, type } = req.body;
 
   try {
       // Ensure type is only added if it exists in the request body
@@ -20,7 +20,7 @@ export const addShoe = async (req: Request, res: Response) => {
           offerPrice,
           description,
           images,
-          isATopPcik
+          isATopPick
       });
 
 
@@ -34,7 +34,7 @@ export const addShoe = async (req: Request, res: Response) => {
 
 export const getAllShoes = async (req: Request, res: Response) => {
   try {
-    const brands = await Shoe.find();
+    const brands = await Shoe.find().sort({ createdAt: -1 });
     res.json(brands);
   } catch (error) {
     res.status(400).json({ message: 'Error creating shoe', error });
@@ -62,15 +62,15 @@ export const deleteShoe = async (req: Request, res: Response) => {
 };
 
 export const updateIsTopPickByShoeId = async (req :Request, res : Response) =>{
-  const {_id, isATopPcik} = req.body;
+  const {_id, isATopPick} = req.body;
 
   console.log("_id",_id);
-  console.log("isATopPcik",isATopPcik);
+  console.log("isATopPick",isATopPick);
 
   try{
     const updatedIsTopPickShoe =  await Shoe.findByIdAndUpdate(
       {_id},
-      {isATopPcik},
+      {isATopPick},
       {new: true}
     );
     if(!updatedIsTopPickShoe) return res.status(404).json({message : 'Shoe not found'});
