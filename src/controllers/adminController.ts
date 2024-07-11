@@ -5,11 +5,9 @@ import jwt from 'jsonwebtoken';
 
 
 export const signIn = async (req: Request, res: Response) => {
-    console.log('running signIn func');
     const { email, password } = req.body;
   
     try {
-      console.log('Inside signingIn');
       const admin = await Admin.findOne({ email });
       if (!admin) {
         return res.status(400).json({ message: 'Invalid credentials' });
