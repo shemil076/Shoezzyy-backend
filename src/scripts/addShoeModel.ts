@@ -17,7 +17,6 @@ const shoeModelData = [
     { _id: '668e3e54c8525d360a48be2e', model: 'Samba' },
     { _id: '668e3e97c8525d360a48be37', model: 'StanSmith' },
     { _id: '668e3ec4c8525d360a48be40', model: 'SuperStar' },
-
     { _id: '668e3eeec8525d360a48be49', model: 'YeezySlides' },
     { _id: '668e427cc8525d360a48be5e', model: null },
     { _id: '668e42dec8525d360a48be67', model: null },
@@ -55,19 +54,4 @@ const addShoeModels = async () => {
 };
 
 addShoeModels();
-
-// Function to update the 'model' field for each shoe
-// async function updateShoeModels() {
-//     try {
-//         const updates = shoeUpdates.map(async ({ _id, model }) => {
-//             return Shoe.updateOne({ _id }, { $set: { model } });
-//         });
-//         await Promise.all(updates);
-//         console.log('All shoes updated successfully');
-//     } catch (err) {
-//         console.error('Error updating shoes:', err);
-//     } finally {
-//         mongoose.connection.close(); // Close the connection after the operation
-//     }
-// }
 
