@@ -1,5 +1,3 @@
-// shoeModel.js
-import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
 const shoeSchema = new mongoose.Schema({
@@ -34,6 +32,14 @@ const shoeSchema = new mongoose.Schema({
     createdAt: { 
         type: Date,
         default: Date.now
+    },
+    model:{
+        type: String,
+        default : null
+    },
+    sizeUrl:{
+        type: String,
+        required : true
     }
 });
 

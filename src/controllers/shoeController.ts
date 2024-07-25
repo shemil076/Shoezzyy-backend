@@ -9,7 +9,7 @@ export const getShoes = async (req: Request, res: Response) => {
 };
 
 export const addShoe = async (req: Request, res: Response) => {
-  const { name, brand, description, images, actualPrice, offerPrice, isATopPick, type } = req.body;
+  const { name, brand, description, images, actualPrice, offerPrice, isATopPick, model,sizeUrl } = req.body;
 
   try {
       // Ensure type is only added if it exists in the request body
@@ -20,7 +20,9 @@ export const addShoe = async (req: Request, res: Response) => {
           offerPrice,
           description,
           images,
-          isATopPick
+          isATopPick,
+          model,
+          sizeUrl
       });
 
 
