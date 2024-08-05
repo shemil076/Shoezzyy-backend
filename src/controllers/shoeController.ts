@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Shoe from '../models/Shoe';
 import mongoose from 'mongoose';
 import path from 'path';
+import fs from 'fs';
 
 export const getShoes = async (req: Request, res: Response) => {
   const { brand } = req.params;
@@ -58,6 +59,16 @@ export const deleteShoe = async (req: Request, res: Response) => {
     if (!shoe){
       return res.status(404).json({message : 'Shoe not found'});
     }
+
+    shoe.images.forEach((imagePath: string) => {
+      const fullPath = path.resolve(imagePath);
+      fs.unlink(fullPath, (err) => {
+        if (err) {
+          console.error(`Error deleting image file ${fullPath}:`, err);
+        }
+      });
+    });
+
     res.status(200).json({message: 'Shoe deleted successfully' });
   }catch(error){
     console.error('Error deleting shoe', error);
