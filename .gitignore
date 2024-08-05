@@ -15,3 +15,6 @@ dist/
 # IDE or editor directories
 .vscode/
 .idea/
+
+#images
+uploads/

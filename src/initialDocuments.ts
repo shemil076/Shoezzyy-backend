@@ -1,45 +1,27 @@
-import OrderModel from './models/Order';
-import AdminModel from './models/Admin';
-import ShoeModel from './models/Shoe';
 import mongoose from 'mongoose';
-import { Brand } from './types/enum';
 
-async function createInitialDocuments() {
-
+async function createInitialCollections() {
   try {
     const collections = await mongoose.connection.db.listCollections().toArray();
     const collectionNames = collections.map((collection) => collection.name);
 
+    // Create collections if they don't exist
     if (!collectionNames.includes('orders')) {
-      await OrderModel.create({
-        jobId: 1,
-        customerName: 'John Doe',
-        shoeId: new mongoose.Types.ObjectId("60d5ec49f06c0b5c481d1183"),
-        status: 'pending'
-      });
+      await mongoose.connection.createCollection('orders');
     }
 
     if (!collectionNames.includes('admins')) {
-      await AdminModel.create({
-        username: 'admin',
-        password: 'password'
-      });
+      await mongoose.connection.createCollection('admins');
     }
 
     if (!collectionNames.includes('shoes')) {
-      await ShoeModel.create({
-        brand: Brand.Nike,
-        color: 'Red',
-        price: 100,
-        name: 'Air',
-        images : [""]
-      });
+      await mongoose.connection.createCollection('shoes');
     }
 
-    console.log('Initial documents created if collections were missing');
+    console.log('Initial collections created if they were missing');
   } catch (err) {
-    console.error('Error creating initial documents:', err);
+    console.error('Error creating initial collections:', err);
   }
 }
 
-export default createInitialDocuments;
+export default createInitialCollections;

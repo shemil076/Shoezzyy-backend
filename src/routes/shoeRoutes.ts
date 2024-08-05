@@ -5,11 +5,9 @@ import { getShoes, addShoe, getAllShoes, deleteShoe, updateIsTopPickByShoeId } f
 const router = express.Router();
 
 router.get('/:brand', getShoes);
-
-router.post('/', addShoe);
-router.get('/',getAllShoes);
-router.delete('/:shoeId',deleteShoe);
-router.put('/isATopPick',updateIsTopPickByShoeId);
-
+router.post('/', addShoe); // Note: multer middleware is applied in server setup
+router.get('/', getAllShoes);
+router.delete('/:shoeId', deleteShoe);
+router.put('/isATopPick', updateIsTopPickByShoeId);
 
 export default router;
