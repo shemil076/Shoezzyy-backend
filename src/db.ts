@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const uri = 'mongodb://localhost:27017/shoezzyy';
+const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/shoezzyy';
 
 async function connectDB() {
   try {

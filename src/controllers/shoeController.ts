@@ -11,11 +11,15 @@ export const getShoes = async (req: Request, res: Response) => {
 };
 
 export const addShoe = async (req: Request, res: Response) => {
-  const { name, brand, description, actualPrice, offerPrice, isATopPick, model, sizeUrl } = req.body;
+  const { name, brand, description, actualPrice, offerPrice, isATopPick, model, sizeUrl, maxSize, minSize } = req.body;
 
   try {
     // Extract image file paths from req.files
     const images = (req.files as Express.Multer.File[]).map(file => file.path);
+
+    var maximumSize = parseInt(maxSize);
+    var minimumSize = parseInt(minSize);
+
 
     const shoe = new Shoe({
       name,
@@ -26,7 +30,9 @@ export const addShoe = async (req: Request, res: Response) => {
       images,
       isATopPick,
       model,
-      sizeUrl
+      sizeUrl,
+      maximumSize,
+      minimumSize
     });
 
     await shoe.save();
@@ -89,6 +95,25 @@ export const updateIsTopPickByShoeId = async (req: Request, res: Response) => {
     if (!updatedIsTopPickShoe) return res.status(404).json({ message: 'Shoe not found' });
     res.status(200).json(updatedIsTopPickShoe);
   } catch (error) {
+    console.error('Error updating shoe as a top pick', error);
+    res.status(400).json({ message: 'Error updating shoe as a top pick', error });
+  }
+};
+
+export const updateShoePrice = async (req: Request, res: Response) =>{
+  const {_id, actualPrice, offerPrice} = req.body;
+
+  try{
+    const updatedPrice = await Shoe.findByIdAndUpdate(
+      _id,
+      {actualPrice,offerPrice},
+      {new : true}
+    )
+
+    if(!updatedPrice) return res.status(404).json({ message: 'shoe not found and failed to update the price' });
+
+    res.status(200).json(updatedPrice);
+  }catch (error){
     console.error('Error updating shoe', error);
     res.status(400).json({ message: 'Error updating shoe', error });
   }

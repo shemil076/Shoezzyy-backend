@@ -1,0 +1,51 @@
+services:
+  app:
+    image: shemil076/shoezzyy:v0.2
+    restart: unless-stopped
+    container_name: shoe_app
+    ports:
+      - '5000:5000'
+    environment:
+      MONGO_URI: 'mongodb://mongo:27017/app' # mongodb://root:example@mongo:27017/app?authSource=admin
+      # mongodb://mongo:27017/app # If you don't want to use authentication
+    depends_on:
+      - mongo
+    networks:
+      - ubuntu_default
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+  
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    container_name: mongo
+    ports:
+      - 28017:27017
+    environment:
+      # Remove the following environment variables if you don't want to use authentication
+      MONGO_INITDB_DATABASE: 'app'
+    volumes:
+      - mongo_data:/data/db
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    networks:
+      - ubuntu_default
+
+networks:
+  ubuntu_default:
+    external: true
+
+volumes:
+  mongo_data:

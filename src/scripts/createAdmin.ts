@@ -6,10 +6,10 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const createAdmin = async () => {
-    const firstName = "Sam";
-    const lastName = "Smith";
-    const email = 'exampleAdmi@mail.com';
-    const password = 'exampleAdminPassword';
+    const firstName = "Afzal";
+    const lastName = "Jazeel";
+    const email = 'shoe.zzyyofficial@gmail.com';
+    const password = 'Shz@!.Webcom5t';
 
     try {
         const mongoSecret = 'mongodb://localhost:27017/shoezzyy';

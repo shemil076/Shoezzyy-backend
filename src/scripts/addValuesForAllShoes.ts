@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const Shoe = require('../models/Shoe').default;
 
 const addValuesForAllShoes = async () =>{
-    const sizeUrl = 'https://drive.google.com/file/d/19F4gj8pv0_a1xU6HFwLDhF_JjLz1Gik2/view?usp=sharing';
+    // const sizeUrl = 'https://drive.google.com/file/d/19F4gj8pv0_a1xU6HFwLDhF_JjLz1Gik2/view?usp=sharing';
+
+    const maximumSize = 45;
+    const minimumSize = 37
     try{
         const mongoSecret = 'mongodb://localhost:27017/shoezzyy';
         if(!mongoSecret){
@@ -17,7 +20,8 @@ const addValuesForAllShoes = async () =>{
         try{
              await Shoe.updateMany(
                 {},
-                {$set : {sizeUrl}}
+                {$set : {maximumSize, minimumSize}}
+                
              );
 
              console.log("updaed")!

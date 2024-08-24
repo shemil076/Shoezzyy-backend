@@ -14,6 +14,8 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 5000;
 
+app.use(express.static('public'))
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');
@@ -38,8 +40,17 @@ app.use('/brand/uploads', express.static(path.resolve('uploads')));
 
 // Routes
 app.use('/api/orders', orderRoutes);
-app.use('/api/shoes', upload.array('images', 4), shoeRoutes); // Apply multer middleware to shoeRoutes
+app.use('/api/shoes', upload.array('images', 4), shoeRoutes);
 app.use('/api/admin', adminRouters);
+
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
+app.get('*', (req,res) =>{
+    // res.sendFile(path.join(__dirname + '../public/index.html'));
+    res.sendFile("/app/public/index.html");
+});
 
 // Start server and connect to DB
 app.listen(port, '0.0.0.0', async () => {

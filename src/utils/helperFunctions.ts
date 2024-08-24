@@ -5,7 +5,8 @@ export const brandNames: Record<Brand, string> = {
     [Brand.AllStarConverse]: 'All Star Converse',
     [Brand.NewBalance]: 'New Balance',
     [Brand.Nike]: 'Nike',
-    [Brand.VansOldSkool]: 'Vans Old Skool'
+    [Brand.VansOldSkool]: 'Vans Old Skool',
+    [Brand.Other]: 'Other',
   };
 
 export  const getReadableBrandName = (brandKey: Brand): string => {

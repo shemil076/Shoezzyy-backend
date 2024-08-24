@@ -40,6 +40,14 @@ const shoeSchema = new mongoose.Schema({
     sizeUrl:{
         type: String,
         required : true
+    },
+    minimumSize:{
+        type: Number,
+        required : true
+    },
+    maximumSize:{
+        type: Number,
+        required : true
     }
 });
 

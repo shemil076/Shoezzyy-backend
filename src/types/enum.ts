@@ -3,6 +3,7 @@ export enum Brand {
     AllStarConverse = 'AllStarConverse',
     NewBalance = 'NewBalance',
     Nike = 'Nike',
-    VansOldSkool = 'VansOldSkool'
+    VansOldSkool = 'VansOldSkool',
+    Other = 'Other'
   }
   
