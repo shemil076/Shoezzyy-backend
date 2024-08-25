@@ -114,7 +114,26 @@ export const updateShoePrice = async (req: Request, res: Response) =>{
 
     res.status(200).json(updatedPrice);
   }catch (error){
-    console.error('Error updating shoe', error);
-    res.status(400).json({ message: 'Error updating shoe', error });
+    console.error('Error updating shoe price', error);
+    res.status(400).json({ message: 'Error updating shoe price', error });
   }
 };
+
+export const updateShoeSizes = async(req: Request, res: Response) =>{
+  const {_id, minimumSize, maximumSize} = req.body;
+
+  try{
+    const updatedShoe = await Shoe.findByIdAndUpdate(
+      _id,
+      {maximumSize,minimumSize},
+      {new : true}
+    )
+
+    if(!updatedShoe) return res.status(404).json({message: 'Shoe not found and failed to updated the size'});
+
+    res.status(200).json(updatedShoe);
+  }catch (error){
+    console.error('Error updating shoe size', error);
+    res.status(400).json({ message: 'Error updating shoe size', error });
+  }
+}
