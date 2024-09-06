@@ -11,14 +11,16 @@ export const getShoes = async (req: Request, res: Response) => {
 };
 
 export const addShoe = async (req: Request, res: Response) => {
-  const { name, brand, description, actualPrice, offerPrice, isATopPick, model, sizeUrl, maxSize, minSize } = req.body;
+  const { name, brand, description, actualPrice, offerPrice, isATopPick, model, sizeUrl, maxSize, minSize, availableSize,isInstantDelivery } = req.body;
 
   try {
     // Extract image file paths from req.files
     const images = (req.files as Express.Multer.File[]).map(file => file.path);
+    
+    var maximumSize = maxSize && parseInt(maxSize);
+    var minimumSize = minSize && parseInt(minSize);
 
-    var maximumSize = parseInt(maxSize);
-    var minimumSize = parseInt(minSize);
+    const instantDelivery = isInstantDelivery === 'true';
 
 
     const shoe = new Shoe({
@@ -32,7 +34,9 @@ export const addShoe = async (req: Request, res: Response) => {
       model,
       sizeUrl,
       maximumSize,
-      minimumSize
+      minimumSize,
+      isInstantDelivery : instantDelivery,
+      availableSize,
     });
 
     await shoe.save();
@@ -135,5 +139,38 @@ export const updateShoeSizes = async(req: Request, res: Response) =>{
   }catch (error){
     console.error('Error updating shoe size', error);
     res.status(400).json({ message: 'Error updating shoe size', error });
+  }
+}
+
+export const updateStringData = async (req: Request, res: Response) =>{
+  const {_id, name, description}= req.body;
+
+  try{
+    let updatedShoe = null;
+    if(name){
+      updatedShoe = await Shoe.findByIdAndUpdate(
+        _id,
+        {name},
+        {new: true}
+      )
+
+      if(!updatedShoe) return res.status(404).json({message: 'Shoe not found and failed to updated the name '});
+    }
+
+    if(description){
+      updatedShoe = await Shoe.findByIdAndUpdate(
+        _id,
+        {description},
+        {new: true}
+      )
+
+      if(!updatedShoe) return res.status(404).json({message: 'Shoe not found and failed to updated the description'});
+    }
+    
+    res.status(200).json(updatedShoe);
+
+  }catch (error){
+    console.error('Error updating shoe details', error);
+    res.status(400).json({ message: 'Error updating shoe details', error });
   }
 }

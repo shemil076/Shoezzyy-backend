@@ -43,11 +43,18 @@ const shoeSchema = new mongoose.Schema({
     },
     minimumSize:{
         type: Number,
-        required : true
     },
     maximumSize:{
         type: Number,
-        required : true
+       
+    },
+    availableSize :{
+        type: Number,
+    },
+    isInstantDelivery:{
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 
